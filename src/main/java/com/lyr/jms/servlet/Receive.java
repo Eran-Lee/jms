@@ -3,14 +3,11 @@ package com.lyr.jms.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueReceiver;
-import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
