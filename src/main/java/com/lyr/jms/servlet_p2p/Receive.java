@@ -1,14 +1,13 @@
-package com.lyr.jms.servlet;
+package com.lyr.jms.servlet_p2p;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
-import javax.jms.QueueSender;
+import javax.jms.QueueReceiver;
 import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -19,15 +18,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "Send", urlPatterns = {"/Send"})
-public class Sender extends HttpServlet{
+@WebServlet("/Receive")
+public class Receive extends HttpServlet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public Sender() {
+	public Receive() {
 		super();
 	}
 	
@@ -43,17 +42,15 @@ public class Sender extends HttpServlet{
 		
 			QueueConnection connection = (QueueConnection)conFactory.createConnection();
 			
-			QueueSession queueSession = connection.createQueueSession(false, Session.DUPS_OK_ACKNOWLEDGE);
+			QueueSession queueSession = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 			
-			QueueSender sender = queueSession.createSender(queue);
+			QueueReceiver receiver = queueSession.createReceiver(queue);
 			
-			sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			connection.start();
 			
-			TextMessage message = queueSession.createTextMessage("Hello World");
+			TextMessage message = (TextMessage)receiver.receive();
 			
-			sender.send(message);
-			
-			writer.write("message send:" + message.getText());
+			writer.write("Message Received: "+message.getText());
 			
 			connection.close();
 			

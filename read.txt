@@ -1,3 +1,4 @@
-1.本练习是为了实现p2p消息队列模式， 参考示例https://www.cnblogs.com/super-d2/p/4249768.html
+1.本练习是为了实现p2p消息队列模式， 参考示例https://blog.csdn.net/xiaofeienen/article/details/55099031; https://www.cnblogs.com/super-d2/p/4249768.html
 2.用到额外的activemq,需要先启动activemq服务；
 后续会加入实现pub/sub模式
+新增了pub/sub模式，需要进一步了解ActiveMQ的使用
