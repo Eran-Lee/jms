@@ -1,4 +1,4 @@
-package com.lyr.jms.servlet.producer_consumer;
+package com.lyr.jms.servlet.producer_consumer01;
 
 public class DataStore {
 	private int m_idata = 0;
@@ -13,10 +13,10 @@ public class DataStore {
 			}
 		}
 		
-		System.out.println("produce:" + inputData);
+		System.out.println(Thread.currentThread().getName() + "produce:" + inputData);
 		m_idata = inputData;
 		m_bSetData = true;
-		this.notify(); //通知消费者消费
+		this.notifyAll(); //通知消费者消费
 	}
 	
 	public synchronized void consumerData() {
@@ -28,9 +28,9 @@ public class DataStore {
 				System.out.println("InterrupExcepthion get data\n");
 			}
 		}
-		System.out.println("consumer: " + m_idata + "\n");
+		System.out.println(Thread.currentThread().getName() + "consumer: " + m_idata + "\n");
 		m_bSetData = false;
-		this.notify(); //通知生产者生产数据
+		this.notifyAll(); //通知生产者生产数据
 	}
 
 }
