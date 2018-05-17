@@ -32,7 +32,6 @@ public class Sender extends HttpServlet{
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		PrintWriter writer = response.getWriter();
 		
 		try {
 			InitialContext context = new InitialContext();
@@ -53,7 +52,7 @@ public class Sender extends HttpServlet{
 			
 			sender.send(message);
 			
-			writer.write("message send:" + message.getText());
+			System.out.println("message send:" + message.getText());
 			
 			connection.close();
 			
